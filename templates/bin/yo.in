@@ -1,0 +1,4 @@
+#!/bin/sh
+PATH=${nodejs:location}/bin:$PATH
+cd ${buildout:directory}
+exec ${buildout:directory}/node_modules/.bin/yo

@@ -1,0 +1,32 @@
+{
+  "name": " ",
+  "version": "0.0.1",
+  "repository": "h ",
+  "dependencies": {
+    "angular": "1.2.15",
+    "json3": "~3.2.6",
+    "es5-shim": "~2.1.0",
+    "jquery": "~1.10.2",
+    "bootstrap": "~3.0.3",
+    "angular-resource": "~1.2.14",
+    "angular-cookies": "1.2.15",
+    "angular-sanitize": "1.2.15",
+    "angular-busy": "~3.0.2",
+    "angular-file-upload": "https://github.com/Inventorum/angular-file-upload.git#~0.5.7",
+    "jquery-cookie": "~1.4.0",
+    "venturocket-angular-slider": "~0.2.5",
+    "AngularJS-Toaster": "https://github.com/jirikavi/AngularJS-Toaster.git#~0.4.5",
+    "angularLocalStorage": "~0.1.7",
+    "angular-ui-select2": "~0.0.5",
+    "angular-bootstrap": "~0.11.0",
+    "angular-ui-router": "~0.2.10",
+    "ngInfiniteScroll": "https://github.com/Inventorum/ngInfiniteScroll.git#master"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.15",
+    "angular-scenario": "1.2.15"
+  },
+  "resolutions": {
+    "angular": "1.2.16"
+  }
+}

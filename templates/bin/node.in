@@ -1,0 +1,3 @@
+#!/bin/sh
+PATH=${nodejs:location}/bin:$PATH
+exec ${nodejs:location}/bin/node $@

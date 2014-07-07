@@ -1,0 +1,25 @@
+#!/bin/sh
+(
+foldername=`basename $(pwd)`
+echo $foldername;
+cd "$(pwd)/.."
+echo $(pwd)
+
+out="/tmp/"$foldername"_"$(date '+%Y-%m-%d_%H:%M:%S')".tgz"
+
+tar -czvf "$out" \
+    --exclude="$foldername/parts" \
+    --exclude="$foldername/downloads" \
+    --exclude="$foldername/var" \
+    --exclude="$foldername/.installed.cfg" \
+    --exclude="$foldername/bin" \
+    --exclude="$foldername/.git" \
+    --exclude="$foldername/src/com.itemfire.ios/itemfire/build" \
+    --exclude="*.pyc" \
+    --exclude=".DS_Store" \
+    --exclude="$foldername/site/node_modules" \
+    "$foldername"
+
+    ls -lah "$out"
+)
+

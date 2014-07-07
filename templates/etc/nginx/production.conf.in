@@ -1,0 +1,61 @@
+# -*- mode: perl -*-
+
+server {
+    # http://serverfault.com/questions/67316/in-nginx-how-can-i-rewrite-all-http-requests-to-https-while-maintaining-sub-dom/171238#171238
+    listen 80;
+    server_name backoffice.inventorum.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    ssl_certificate         /etc/ssl/backoffice.inventorum.com.chain.pem;
+    ssl_certificate_key     /etc/ssl/backoffice.inventorum.com.key;
+    ssl_session_timeout     5m;
+
+    # https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+    ssl_prefer_server_ciphers On;
+    ssl_protocols           SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+
+    listen 443 ssl;
+
+    server_name backoffice.inventorum.com;
+
+    include 001-inv-common-server.conf;
+
+    access_log /var/log/nginx/access-backoffice.timed.log timed_personalized_combined;
+
+
+    # internal location, used when django allows static delivery via ``X-Accel-Redirect``
+    # this is double bracketed cause you might want to allow different locations like::
+    #
+    #   location ~ ^/_((uploads|downloads).*)$
+    #
+    # and this will still work
+    # TODO amb: rather include a common section from api here, than copying this over
+    location ~ ^/_((uploads).*)$ {
+        internal;
+        alias /var/www/inventorum/backend/$1;
+    }
+
+    # TODO amb: rather include a common section from api here, than copying this over
+    location ~ '^/(v[\d]+|api|uploads)/' {
+        client_max_body_size 19m;
+
+        include       uwsgi_params;
+        uwsgi_param   SCRIPT_NAME '';
+
+        # as in ``/etc/uwsgi/apps-enabled/inventorum.ini``
+        uwsgi_pass inventorumbackend;
+
+        # http://uwsgi-docs.readthedocs.org/en/latest/Gevent.html#notes-on-clients-and-frontends
+        # http://wiki.nginx.org/HttpUwsgiModule#uwsgi_buffering
+        # ``X-Accel-Buffering`` is our choice to disable ``uwsgi_buffering`` temporarily for one response
+        uwsgi_buffering on;
+        uwsgi_buffers 131072 8k;
+    }
+
+    location / {
+        root /var/www/inventorum/backoffice/;
+    }
+}

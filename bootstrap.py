@@ -75,8 +75,8 @@ except ImportError:
     except ImportError:
         from urllib2 import urlopen
 
-    # XXX use a more permanent ez_setup.py URL when available.
-    exec(urlopen('http://pypi.inventorum.net/pypa/setuptools/raw/2.0.2/ez_setup.py'
+    # XXX version 2.0.2
+    exec(urlopen('https://bitbucket.org/qwcode/setuptools/raw/5a62ac60ba31d249db1cfcff31d85ca26421be6d/ez_setup.py'
                 ).read(), ez)
     setup_args = dict(to_dir=tmpeggs, download_delay=0)
     ez['use_setuptools'](**setup_args)

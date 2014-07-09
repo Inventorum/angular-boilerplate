@@ -1,10 +1,14 @@
 .. vim: set filetype=rst :
 
-Development
------------
+=========================
+AngularJS Sandbox Project
+=========================
+
+Prerequisites
+=============
 
 Build a Sandbox
-...............
+---------------
 
 As usual, the basics are packed in a ``zc.buildout`` package to provide NodeJS and some basics. 
 Do::
@@ -12,8 +16,12 @@ Do::
     python2.7 bootstrap.py
     bin/buildout -vv
 
+
+Development
+===========
+
 Run Development Mode
-....................
+--------------------
 
 You have to options when developing. You can either use your own local API or you can use slingshot. 
 To use your local API:
@@ -29,13 +37,17 @@ To use slingshot: (you can pass staging but its default value)
     bin/grunt build serve
 
 Generate .po files for translations
-...................................
+-----------------------------------
 
 ::
 
     bin/grunt nggettext_extract
 
 Template file will be saved to ``/po/template.pot``
+
+
+Links
+=====
 
 How This Project Was Built
 --------------------------
@@ -55,9 +67,6 @@ http://stackoverflow.com/questions/21198977/difference-between-grunt-and-bower-p
 
 Even though i would like to stick with one, the versions used by ``bower.json`` are not necessarily available for 
 ``package.json``
-
-Links
-=====
 
 General AngularJS
 -----------------
